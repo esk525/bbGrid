@@ -593,7 +593,9 @@ _.extend(bbGrid.RowView.prototype, Backbone.View.prototype, {
                 if (col.actions) {
                     col.name = 'bbGrid-actions-cell';
                     col.value = col.actions(self.model.id, self.model.attributes, self.view);
-                } else {
+                } else if (_.isFunction(col.renderer)) {
+									col.value = col.renderer(self.model.id, self.model.attributes[col.name], self.model.attributes, self.view);
+								} else {
                     col.value = self.model.attributes[col.name];
                 }
                 return col;

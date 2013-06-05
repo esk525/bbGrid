@@ -9,3 +9,7 @@ That's an extendable grid system (jqGrid like) developed on Backbone.js, Twitter
 
 Include bbGrid.js and bbGrid.css into your project. 
 [Documentation and examples.](http://direct-fuel-injection.github.com/bbGrid/)
+
+###Branch Additions
+- Added property renderer to colModel definition.  renderer is a function that returns html contents of cell.
+Unlike actions property, click events are not disabled on cell.
