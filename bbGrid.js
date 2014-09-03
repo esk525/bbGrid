@@ -4,6 +4,10 @@
 //     bbGrid may be freely distributed under the MIT license.
 //     For all details and documentation:
 //     http://direct-fuel-injection.github.com/bbGrid/
+
+//(c) Edward Kline
+//Added property renderer to colModel definition.  renderer is a function that returns html contents of cell.
++Unlike actions property, click events are not disabled on cell.
 (function () {
     var templateSettings = {
 	    evaluate: /<%([\s\S]+?)%>/g,
@@ -196,7 +200,9 @@
                         } else {
                             col.value = self.view.actions[col.actions].call(self, self.model.id, self.model.attributes, self.view);
                         }
-                    } else {
+                    } else if(_.isFunction(col.renderer)) {
+                      col.value = col.renderer(self.model.id, self.model.attributes[col.name], self.model.attributes, self.view);
+                    }else {
                         col.attributes = _.omit(col, 'name', 'value', 'className', 'title', 'editable', 'width', 'index', 'escape',
                             'hidden', 'sorttype', 'filter', 'filterType', 'sortOrder', 'filterColName', 'resizable', 'attributes');
                         col.value = self.getPropByStr(self.model.attributes, col.name);
